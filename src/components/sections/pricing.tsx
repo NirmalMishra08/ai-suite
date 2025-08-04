@@ -22,7 +22,7 @@ const plans = [
             "Standard Security"
         ],
         popular: false,
-        color: "border-gray-200",
+        color: "border-gray-200 dark:border-gray-700",
         contentLimit: 50,
         timeSaved: 2, // hours per piece
         costPerPiece: 0.58
@@ -42,7 +42,7 @@ const plans = [
             "Custom Integrations"
         ],
         popular: true,
-        color: "border-blue-500",
+        color: "border-blue-500 dark:border-blue-400",
         contentLimit: 500,
         timeSaved: 2.5, // hours per piece
         costPerPiece: 0.198
@@ -62,7 +62,7 @@ const plans = [
             "Custom Development"
         ],
         popular: false,
-        color: "border-gray-200",
+        color: "border-gray-200 dark:border-gray-700",
         contentLimit: 1000,
         timeSaved: 3, // hours per piece
         costPerPiece: 0.299
@@ -89,14 +89,14 @@ const Pricing: React.FC = () => {
     const roi = ((netSavings / totalCost) * 100).toFixed(0)
 
     return (
-        <section className="py-20 bg-white">
+        <section className="py-20 bg-white dark:bg-gray-900">
             <Container>
                 <div className="text-center mb-16">
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
-                        className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
+                        className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6"
                     >
                         Simple, Transparent
                         <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -107,7 +107,7 @@ const Pricing: React.FC = () => {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
-                        className="text-xl text-gray-600 max-w-3xl mx-auto mb-8"
+                        className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8"
                     >
                         Choose the perfect plan for your business. All plans include our core AI features.
                     </motion.p>
@@ -119,21 +119,21 @@ const Pricing: React.FC = () => {
                         transition={{ duration: 0.6, delay: 0.4 }}
                         className="flex items-center justify-center gap-4 mb-12"
                     >
-                        <span className={`text-sm ${billingCycle === "monthly" ? "text-gray-900" : "text-gray-500"}`}>
+                        <span className={`text-sm ${billingCycle === "monthly" ? "text-gray-900 dark:text-white" : "text-gray-500 dark:text-gray-400"}`}>
                             Monthly
                         </span>
                         <button
                             onClick={() => setBillingCycle(billingCycle === "monthly" ? "yearly" : "monthly")}
-                            className="relative w-16 h-8 bg-gray-200 rounded-full p-1 transition-colors"
+                            className="relative w-16 h-8 bg-gray-200 dark:bg-gray-700 rounded-full p-1 transition-colors"
                         >
                             <div
-                                className={`absolute top-1 w-6 h-6 bg-white rounded-full shadow-md transition-transform ${billingCycle === "yearly" ? "translate-x-8" : "translate-x-0"
+                                className={`absolute top-1 w-6 h-6 bg-white dark:bg-gray-300 rounded-full shadow-md transition-transform ${billingCycle === "yearly" ? "translate-x-8" : "translate-x-0"
                                     }`}
                             />
                         </button>
-                        <span className={`text-sm ${billingCycle === "yearly" ? "text-gray-900" : "text-gray-500"}`}>
+                        <span className={`text-sm ${billingCycle === "yearly" ? "text-gray-900 dark:text-white" : "text-gray-500 dark:text-gray-400"}`}>
                             Yearly
-                            <span className="ml-1 text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">
+                            <span className="ml-1 text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-1 rounded-full">
                                 Save 20%
                             </span>
                         </span>
@@ -156,16 +156,16 @@ const Pricing: React.FC = () => {
                                 </Badge>
                             )}
                             <Card
-                                className={`p-8 h-full transition-all duration-300 hover:shadow-xl ${selectedPlan === index ? "ring-2 ring-blue-500" : ""
+                                className={`p-8 h-full transition-all duration-300 hover:shadow-xl dark:hover:shadow-gray-900/50 ${selectedPlan === index ? "ring-2 ring-blue-500 dark:ring-blue-400" : ""
                                     } ${plan.color}`}
                                 onClick={() => setSelectedPlan(index)}
                             >
                                 <div className="text-center mb-6">
-                                    <h3 className="text-2xl font-bold text-gray-900 mb-2">{plan.name}</h3>
-                                    <p className="text-gray-600 mb-4">{plan.description}</p>
+                                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{plan.name}</h3>
+                                    <p className="text-gray-600 dark:text-gray-300 mb-4">{plan.description}</p>
                                     <div className="mb-4">
-                                        <span className="text-4xl font-bold text-gray-900">${getPrice(plan.price)}</span>
-                                        <span className="text-gray-600">/month</span>
+                                        <span className="text-4xl font-bold text-gray-900 dark:text-white">${getPrice(plan.price)}</span>
+                                        <span className="text-gray-600 dark:text-gray-400">/month</span>
                                     </div>
                                 </div>
 
@@ -173,7 +173,7 @@ const Pricing: React.FC = () => {
                                     {plan.features.map((feature, featureIndex) => (
                                         <li key={featureIndex} className="flex items-center">
                                             <Check size={16} className="text-green-500 mr-3 flex-shrink-0" />
-                                            <span className="text-gray-700">{feature}</span>
+                                            <span className="text-gray-700 dark:text-gray-300">{feature}</span>
                                         </li>
                                     ))}
                                 </ul>
@@ -194,14 +194,14 @@ const Pricing: React.FC = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.6 }}
-                    className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 mb-16"
+                    className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl p-8 mb-16"
                 >
                     <div className="text-center mb-8">
                         <div className="flex items-center justify-center mb-4">
-                            <Calculator className="w-8 h-8 text-blue-600 mr-3" />
-                            <h3 className="text-3xl font-bold text-gray-900">ROI Calculator</h3>
+                            <Calculator className="w-8 h-8 text-blue-600 dark:text-blue-400 mr-3" />
+                            <h3 className="text-3xl font-bold text-gray-900 dark:text-white">ROI Calculator</h3>
                         </div>
-                        <p className="text-gray-600 max-w-2xl mx-auto">
+                        <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                             See how much you can save with our AI-powered content generation.
                             Calculate your potential ROI based on your usage and team size.
                         </p>
@@ -211,7 +211,7 @@ const Pricing: React.FC = () => {
                         {/* Calculator Controls */}
                         <div className="space-y-6">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                     Monthly Content Pieces
                                 </label>
                                 <input
@@ -220,9 +220,9 @@ const Pricing: React.FC = () => {
                                     max="1000"
                                     value={monthlyContent}
                                     onChange={(e) => setMonthlyContent(parseInt(e.target.value))}
-                                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                                    className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer slider-thumb"
                                 />
-                                <div className="flex justify-between text-sm text-gray-600 mt-1">
+                                <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mt-1">
                                     <span>10</span>
                                     <span className="font-medium">{monthlyContent}</span>
                                     <span>1000</span>
@@ -230,7 +230,7 @@ const Pricing: React.FC = () => {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                     Team Hourly Rate ($)
                                 </label>
                                 <input
@@ -239,9 +239,9 @@ const Pricing: React.FC = () => {
                                     max="200"
                                     value={hourlyRate}
                                     onChange={(e) => setHourlyRate(parseInt(e.target.value))}
-                                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                                    className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer slider-thumb"
                                 />
-                                <div className="flex justify-between text-sm text-gray-600 mt-1">
+                                <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mt-1">
                                     <span>$20</span>
                                     <span className="font-medium">${hourlyRate}</span>
                                     <span>$200</span>
@@ -250,29 +250,29 @@ const Pricing: React.FC = () => {
                         </div>
 
                         {/* Results */}
-                        <div className="bg-white rounded-xl p-6 shadow-lg">
-                            <h4 className="text-xl font-bold text-gray-900 mb-4">Your Savings</h4>
+                        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg dark:shadow-gray-900/50">
+                            <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Your Savings</h4>
                             <div className="space-y-4">
                                 <div className="flex justify-between items-center">
-                                    <span className="text-gray-600">Monthly Cost:</span>
-                                    <span className="font-semibold">${totalCost.toFixed(0)}</span>
+                                    <span className="text-gray-600 dark:text-gray-400">Monthly Cost:</span>
+                                    <span className="font-semibold text-gray-900 dark:text-white">${totalCost.toFixed(0)}</span>
                                 </div>
                                 <div className="flex justify-between items-center">
-                                    <span className="text-gray-600">Time Saved:</span>
-                                    <span className="font-semibold">{timeSaved.toFixed(0)} hours</span>
+                                    <span className="text-gray-600 dark:text-gray-400">Time Saved:</span>
+                                    <span className="font-semibold text-gray-900 dark:text-white">{timeSaved.toFixed(0)} hours</span>
                                 </div>
                                 <div className="flex justify-between items-center">
-                                    <span className="text-gray-600">Cost Savings:</span>
-                                    <span className="font-semibold text-green-600">${costSavings.toFixed(0)}</span>
+                                    <span className="text-gray-600 dark:text-gray-400">Cost Savings:</span>
+                                    <span className="font-semibold text-green-600 dark:text-green-400">${costSavings.toFixed(0)}</span>
                                 </div>
-                                <div className="border-t pt-4">
+                                <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
                                     <div className="flex justify-between items-center">
-                                        <span className="text-lg font-bold text-gray-900">Net Savings:</span>
-                                        <span className="text-2xl font-bold text-green-600">${netSavings.toFixed(0)}</span>
+                                        <span className="text-lg font-bold text-gray-900 dark:text-white">Net Savings:</span>
+                                        <span className="text-2xl font-bold text-green-600 dark:text-green-400">${netSavings.toFixed(0)}</span>
                                     </div>
                                     <div className="flex justify-between items-center mt-2">
-                                        <span className="text-gray-600">ROI:</span>
-                                        <span className="text-xl font-bold text-blue-600">{roi}%</span>
+                                        <span className="text-gray-600 dark:text-gray-400">ROI:</span>
+                                        <span className="text-xl font-bold text-blue-600 dark:text-blue-400">{roi}%</span>
                                     </div>
                                 </div>
                             </div>
@@ -290,22 +290,22 @@ const Pricing: React.FC = () => {
                     <div className="flex items-center justify-center space-x-3">
                         <TrendingUp className="w-8 h-8 text-green-500" />
                         <div>
-                            <div className="text-2xl font-bold text-gray-900">300%</div>
-                            <div className="text-gray-600">Average ROI</div>
+                            <div className="text-2xl font-bold text-gray-900 dark:text-white">300%</div>
+                            <div className="text-gray-600 dark:text-gray-400">Average ROI</div>
                         </div>
                     </div>
                     <div className="flex items-center justify-center space-x-3">
                         <Clock className="w-8 h-8 text-blue-500" />
                         <div>
-                            <div className="text-2xl font-bold text-gray-900">80%</div>
-                            <div className="text-gray-600">Time Saved</div>
+                            <div className="text-2xl font-bold text-gray-900 dark:text-white">80%</div>
+                            <div className="text-gray-600 dark:text-gray-400">Time Saved</div>
                         </div>
                     </div>
                     <div className="flex items-center justify-center space-x-3">
                         <DollarSign className="w-8 h-8 text-purple-500" />
                         <div>
-                            <div className="text-2xl font-bold text-gray-900">$50k+</div>
-                            <div className="text-gray-600">Average Savings</div>
+                            <div className="text-2xl font-bold text-gray-900 dark:text-white">$50k+</div>
+                            <div className="text-gray-600 dark:text-gray-400">Average Savings</div>
                         </div>
                     </div>
                 </motion.div>

@@ -81,6 +81,24 @@
     @apply bg-gray-500 dark:bg-gray-500;
   }
 
+  /* Custom slider styles for dark mode */
+  .slider-thumb::-webkit-slider-thumb {
+    @apply appearance-none w-6 h-6 rounded-full bg-blue-500 dark:bg-blue-400 cursor-pointer shadow-lg;
+    border: 2px solid white;
+  }
+
+  .slider-thumb::-moz-range-thumb {
+    @apply appearance-none w-6 h-6 rounded-full bg-blue-500 dark:bg-blue-400 cursor-pointer shadow-lg border-2 border-white;
+  }
+
+  .slider-thumb::-webkit-slider-thumb:hover {
+    @apply bg-blue-600 dark:bg-blue-300;
+  }
+
+  .slider-thumb::-moz-range-thumb:hover {
+    @apply bg-blue-600 dark:bg-blue-300;
+  }
+
   /* Smooth transitions */
   * {
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
