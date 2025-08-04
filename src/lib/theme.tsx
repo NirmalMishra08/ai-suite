@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext, useEffect, useState } from "react"
+import React, { createContext, useContext, useEffect, useState } from "react"
 
 type Theme = "light" | "dark"
 
@@ -36,11 +36,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }
 
     return (
-        <ThemeContext.Provider value= {{ theme, toggleTheme }
-}>
-    { children }
-    </ThemeContext.Provider>
-  )
+        <ThemeContext.Provider value={{ theme, toggleTheme }}>
+            {children}
+        </ThemeContext.Provider>
+    )
 }
 
 export function useTheme() {
