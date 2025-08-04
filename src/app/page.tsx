@@ -4,6 +4,7 @@ import {
   Pricing,
   Testimonials,
   FAQ,
+  Blog,
   Footer,
   Header
 } from "@/components/sections"
@@ -29,6 +30,10 @@ export default function Home() {
 
       <section id="faq">
         <FAQ />
+      </section>
+
+      <section id="blog">
+        <Blog />
       </section>
 
       <Footer />

@@ -9,10 +9,11 @@ interface CardProps {
     className?: string
     variant?: "default" | "glass" | "elevated"
     hover?: boolean
+    onClick?: () => void
 }
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
-    ({ className, variant = "default", hover = false, children }, ref) => {
+    ({ className, variant = "default", hover = false, onClick, children }, ref) => {
         const baseStyles = "rounded-xl border border-gray-200/50 dark:border-gray-700/50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm"
 
         const variants = {
@@ -28,6 +29,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
                     className={cn(baseStyles, variants[variant], className)}
                     whileHover={{ y: -4, scale: 1.02 }}
                     transition={{ duration: 0.2 }}
+                    onClick={onClick}
                 >
                     {children}
                 </motion.div>
@@ -38,6 +40,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
             <div
                 ref={ref}
                 className={cn(baseStyles, variants[variant], className)}
+                onClick={onClick}
             >
                 {children}
             </div>

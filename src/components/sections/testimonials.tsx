@@ -1,11 +1,11 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Container } from "@/components/ui/container"
 import { Card } from "@/components/ui/card"
 
-import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react"
+import { ChevronLeft, ChevronRight, Star, Quote, Play, Pause } from "lucide-react"
 
 const testimonials = [
     {
@@ -52,6 +52,9 @@ const testimonials = [
 
 const Testimonials: React.FC = () => {
     const [currentIndex, setCurrentIndex] = useState(0)
+    const [isPlaying, setIsPlaying] = useState(true)
+    const [isHovered, setIsHovered] = useState(false)
+    const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
     const nextTestimonial = () => {
         setCurrentIndex((prev) => (prev + 1) % testimonials.length)
@@ -60,6 +63,36 @@ const Testimonials: React.FC = () => {
     const prevTestimonial = () => {
         setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)
     }
+
+    const toggleAutoplay = () => {
+        setIsPlaying(!isPlaying)
+    }
+
+    const handleManualNavigation = () => {
+        // Reset autoplay timer when user manually navigates
+        if (intervalRef.current) {
+            clearInterval(intervalRef.current)
+        }
+        if (isPlaying && !isHovered) {
+            intervalRef.current = setInterval(nextTestimonial, 5000)
+        }
+    }
+
+    useEffect(() => {
+        if (isPlaying && !isHovered) {
+            intervalRef.current = setInterval(nextTestimonial, 5000)
+        } else {
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current)
+            }
+        }
+
+        return () => {
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current)
+            }
+        }
+    }, [isPlaying, isHovered])
 
     return (
         <section className="py-20 bg-gray-50">
@@ -87,20 +120,39 @@ const Testimonials: React.FC = () => {
                     </motion.p>
                 </div>
 
-                <div className="relative max-w-4xl mx-auto">
+                <div
+                    className="relative max-w-4xl mx-auto"
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                >
                     {/* Navigation Buttons */}
                     <button
-                        onClick={prevTestimonial}
+                        onClick={() => {
+                            prevTestimonial()
+                            handleManualNavigation()
+                        }}
                         className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 p-3 rounded-full bg-white shadow-lg hover:shadow-xl transition-shadow"
                     >
                         <ChevronLeft size={20} />
                     </button>
 
                     <button
-                        onClick={nextTestimonial}
+                        onClick={() => {
+                            nextTestimonial()
+                            handleManualNavigation()
+                        }}
                         className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 p-3 rounded-full bg-white shadow-lg hover:shadow-xl transition-shadow"
                     >
                         <ChevronRight size={20} />
+                    </button>
+
+                    {/* Autoplay Toggle Button */}
+                    <button
+                        onClick={toggleAutoplay}
+                        className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white shadow-lg hover:shadow-xl transition-shadow"
+                        title={isPlaying ? "Pause autoplay" : "Play autoplay"}
+                    >
+                        {isPlaying ? <Pause size={16} /> : <Play size={16} />}
                     </button>
 
                     {/* Testimonial Card */}
@@ -112,12 +164,12 @@ const Testimonials: React.FC = () => {
                             exit={{ opacity: 0, x: -100 }}
                             transition={{ duration: 0.3 }}
                         >
-                            <Card className="p-8 md:p-12 text-center">
+                            <Card className="p-8 md:p-12 text-center dark:text-white dark:bg-gray-900">
                                 <div className="flex justify-center mb-6">
                                     <Quote size={48} className="text-blue-500" />
                                 </div>
 
-                                <p className="text-lg md:text-xl text-gray-700 mb-8 leading-relaxed">
+                                <p className="text-lg md:text-xl text-gray-700 dark:text-white mb-8 leading-relaxed">
                                     &ldquo;{testimonials[currentIndex].content}&rdquo;
                                 </p>
 
@@ -151,7 +203,10 @@ const Testimonials: React.FC = () => {
                         {testimonials.map((_, index) => (
                             <button
                                 key={index}
-                                onClick={() => setCurrentIndex(index)}
+                                onClick={() => {
+                                    setCurrentIndex(index)
+                                    handleManualNavigation()
+                                }}
                                 className={`w-3 h-3 rounded-full transition-colors ${index === currentIndex ? "bg-blue-600" : "bg-gray-300"
                                     }`}
                             />
